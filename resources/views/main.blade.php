@@ -33,10 +33,10 @@
 {{--        </ul>--}}
     </div>
 </nav>
-<div class="container   comune flex-grow-1">
+<div class="container   comune flex-grow-1 pb-4">
 @yield('content')
 </div>
-<footer class="mt-4 text-white flex-shrink-0 text-center p-2">
+<footer class=" text-white flex-shrink-0 text-center p-2">
     Copyright &copy; {{date('Y')}}
 </footer>
 @yield('script')

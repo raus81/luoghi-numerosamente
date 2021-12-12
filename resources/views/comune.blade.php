@@ -122,16 +122,6 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
         </div>
         <div class="col-12 col-lg-3 col-md-4 mt-2 mt-lg-0">
             <h2>Altri comuni in provincia</h2>
-
-            <div class="rounded bg-light altri-comuni ">
-
-                <div class="d-flex flex-wrap p-2 list">
-                    @foreach($stessaprovincia as $nome => $url  )
-                        <a class="flex-grow-1 text-center" href="{{url($url)}}">{{$nome}}</a>
-                    @endforeach
-
-                </div>
-            </div>
             <!-- Italia side -->
             <ins class="adsbygoogle"
                  style="display:block"
@@ -142,6 +132,16 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
+            <div class="rounded bg-light altri-comuni ">
+
+                <div class="d-flex flex-wrap p-2 list">
+                    @foreach($stessaprovincia as $nome => $url  )
+                        <a class="flex-grow-1 text-center" href="{{url($url)}}">{{$nome}}</a>
+                    @endforeach
+
+                </div>
+            </div>
+
 {{--            Lato--}}
 {{--            @php--}}
 {{--                dump( $infos);--}}

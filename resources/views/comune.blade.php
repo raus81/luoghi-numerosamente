@@ -8,6 +8,9 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                 @isset( $infos['patrono'] )
         Patrono: {{$infos['patrono']}}.
                 @endisset">
+
+    <link rel="canonical" href="{{url($data->slug)}}" />
+
 @endpush
 @section('content')
 

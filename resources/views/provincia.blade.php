@@ -4,6 +4,7 @@
 @push('head')
     <title>{{$data->nome}}</title>
     <meta name="description" content="{{$data->nome}}: elenco dei {{count($comuni)}} comuni e dei relativi stemmi">
+    <link rel="canonical" href="{{url($data->slug)}}" />
 @endpush
 @section('content')
     <h1>{{$data->nome}}</h1>

@@ -36,7 +36,7 @@
 <div class="container   comune flex-grow-1">
 @yield('content')
 </div>
-<footer class="text-white flex-shrink-0 text-center p-2">
+<footer class="mt-4 text-white flex-shrink-0 text-center p-2">
     Copyright &copy; {{date('Y')}}
 </footer>
 @yield('script')

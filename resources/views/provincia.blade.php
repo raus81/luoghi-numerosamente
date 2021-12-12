@@ -1,4 +1,10 @@
 @extends('main')
+
+
+@push('head')
+    <title>{{$data->nome}}</title>
+    <meta name="description" content="{{$data->nome}}: elenco dei {{count($comuni)}} comuni e dei relativi stemmi">
+@endpush
 @section('content')
     <h1>{{$data->nome}}</h1>
     <hr>
@@ -45,6 +51,8 @@
             <a href="{{url($comune->slug)}}" class="m-1 flex-grow-1 d-flex align-items-center p-1 border border-2 rounded-2">
                 @if( Storage::exists("public/stemmi/" . $comune->codice . ".jpg"))
                     <img class="stemma-small img-thumbnail"
+                         alt="Stemma comune {{$comune->nome}}"
+                         title="Stemma comune {{$comune->nome}}"
                          src="{{Storage::url("public/stemmi/" . $comune->codice . ".jpg")}}"/>
                 @endif
                 <span class="ms-2  " href="{{url($comune->slug)}}">

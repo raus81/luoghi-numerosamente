@@ -23,7 +23,7 @@ class ComuniController extends Controller {
         $comuni = $provinciaObj->downLevel;
         $breadcrumbs = [];
         $regioneObj = $provinciaObj->upLevel;
-        $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+       // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
 
 
         return view('provincia', [
@@ -66,7 +66,7 @@ class ComuniController extends Controller {
         $provincia = $comuneObj->upLevel;
         $regioneObj = $provincia->upLevel;
 
-        $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+       // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
         $breadcrumbs[$provincia->nome] = $provincia->slug;
 
         //dd( $infos );
@@ -85,7 +85,10 @@ class ComuniController extends Controller {
             return [];
         }
         $search = $params['search'];
-        return Place::query()->where([['search', 'like', $search . '%']])
+        return Place::query()->where([
+            ['search', 'like', $search . '%'],
+            ['livello','!=',2]
+        ])
             ->orderBy(DB::raw('LENGTH("search") '))
             ->limit(10)
             ->get()
@@ -95,12 +98,13 @@ class ComuniController extends Controller {
     }
 
 
-    public function home(){
-        $places =Place::query()->where('livello',4)->inRandomOrder()->limit(20)->get()
-            ->mapWithKeys(function($place){
+    public function home()
+    {
+        $places = Place::query()->where('livello', 4)->inRandomOrder()->limit(20)->get()
+            ->mapWithKeys(function ($place) {
                 return [$place->nome => url($place->slug)];
             });
 
-        return view('home',['places'=>$places]);
+        return view('home', ['places' => $places]);
     }
 }

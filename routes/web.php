@@ -25,4 +25,7 @@ Route::get('/regione-{regione}',[\App\Http\Controllers\ComuniController::class,'
 
 Route::get('/regione-{regione}/comune-di-{comune}/cognomi',[\App\Http\Controllers\ComuniController::class,'cognomi']);
 
+Route::get('sitemap.xml', [\App\Http\Controllers\ComuniController::class,'sitemap'])->name('sitemap');
+
+
 

@@ -6,8 +6,11 @@ use App\Models\Cognome;
 use App\Models\Info;
 use App\Models\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Watson\Sitemap\Facades\Sitemap;
 
 class ComuniController extends Controller {
 
@@ -133,5 +136,26 @@ class ComuniController extends Controller {
             });
 
         return view('home', ['places' => $places]);
+    }
+
+
+    public function sitemap(){
+        $places = Place::query()->where([['livello' ,'!=', 2]])->get();
+
+        $today = Carbon::today();
+        $today->setHour(0)->setMinute(0)->setSecond(0);
+        foreach ($places as $place) {
+            $tag = Sitemap::addTag(url($place->slug), $today, 'daily', '0.8');
+
+
+            if( $place->livello == 4 &&Storage::exists("public/stemmi/" . $place->codice . ".jpg")){
+                $stemmaFile = Storage::url("public/stemmi/" . $place->codice . ".jpg");
+                $tag->addImage($stemmaFile, "Stemma del comune di {$place->nome}");
+
+            }
+
+
+        }
+        return Sitemap::render();
     }
 }

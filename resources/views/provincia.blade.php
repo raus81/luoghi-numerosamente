@@ -17,7 +17,7 @@
             @foreach( $breadcrumb as $nome => $url )
                 <li class="breadcrumb-item text-white"><a class="text-white" href="{{url($url)}}">{{$nome}}</a></li>
             @endforeach
-            <li class="breadcrumb-item active" aria-current="page">{{$data->nome}}</li>
+            <li class="breadcrumb-item active text-black" aria-current="page">{{$data->nome}}</li>
         </ol>
     </nav>
     <h2>

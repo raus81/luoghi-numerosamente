@@ -136,7 +136,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
 
                 <div class="d-flex flex-wrap p-2 list">
                     @foreach($stessaprovincia as $nome => $url  )
-                        <a class="flex-grow-1 text-center" href="{{url($url)}}">{{$nome}}</a>
+                        <a class="flex-grow-1 text-center p-1" href="{{url($url)}}">{{$nome}}</a>
                     @endforeach
 
                 </div>

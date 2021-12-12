@@ -24,4 +24,8 @@ class Place extends Model {
     {
         return $this->hasMany(Place::class, 'parent', 'codice');
     }
+
+    function cognomi(){
+        return $this->hasMany(Cognome::class, 'codice','codice');
+    }
 }

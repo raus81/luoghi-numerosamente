@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cognome;
 use App\Models\Info;
 use App\Models\Place;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ComuniController extends Controller {
         $comuni = $provinciaObj->downLevel;
         $breadcrumbs = [];
         $regioneObj = $provinciaObj->upLevel;
-       // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+        // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
 
 
         return view('provincia', [
@@ -66,11 +67,14 @@ class ComuniController extends Controller {
         $provincia = $comuneObj->upLevel;
         $regioneObj = $provincia->upLevel;
 
-       // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+        // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
         $breadcrumbs[$provincia->nome] = $provincia->slug;
+
+        $cognome = $comuneObj->cognomi()->orderBy('quanti', 'desc')->first();
 
         //dd( $infos );
         return view('comune', ['data' => $comuneObj,
+            'cognome' => $cognome,
             'infos' => $infos,
             'stemma' => $stemmaFile,
             'numcomuni' => $numComuniProvincia,
@@ -87,7 +91,7 @@ class ComuniController extends Controller {
         $search = $params['search'];
         return Place::query()->where([
             ['search', 'like', $search . '%'],
-            ['livello','!=',2]
+            ['livello', '!=', 2]
         ])
             ->orderBy(DB::raw('LENGTH("search") '))
             ->limit(10)

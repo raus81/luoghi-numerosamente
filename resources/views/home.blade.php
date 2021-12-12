@@ -1,5 +1,8 @@
 @extends('main')
-
+@push('head')
+    <title>Luoghi.numerosamente.it | Luoghi in Italia</title>
+    <meta name="description" content="Scopri informazioni e statistiche dei comuni e province italiane. ">
+@endpush
 @section('content')
     <div class="home justify-content-center d-flex flex-column text-center align-self-center h-100">
         <h1>Luoghi in Italia</h1>
@@ -25,7 +28,7 @@
 @endpush
 
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
 
     <script>
         var url = "{{url('api/suggester')}}"

@@ -50,6 +50,16 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                 @endisset
 
             </p>
+            <!-- Italia center -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3475702324698098"
+                 data-ad-slot="8428094320"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
             <h2>Stemma e informazioni</h2>
             <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 @if( $stemma)
@@ -112,6 +122,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
         </div>
         <div class="col-12 col-lg-3 col-md-4 mt-2 mt-lg-0">
             <h2>Altri comuni in provincia</h2>
+
             <div class="rounded bg-light altri-comuni ">
 
                 <div class="d-flex flex-wrap p-2 list">
@@ -121,6 +132,16 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
 
                 </div>
             </div>
+            <!-- Italia side -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3475702324698098"
+                 data-ad-slot="9447686042"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
 {{--            Lato--}}
 {{--            @php--}}
 {{--                dump( $infos);--}}

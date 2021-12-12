@@ -12,7 +12,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K4QL2HZLZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'G-K4QL2HZLZV');
+    </script>
 </head>
 <body class="h-100  d-flex flex-column">
 <nav class="navbar navbar-expand navbar-dark bg-dark">

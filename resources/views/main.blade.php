@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @stack('head')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @stack('head')
+
 </head>
 <body class="h-100  d-flex flex-column">
 <nav class="navbar navbar-expand navbar-dark bg-dark">

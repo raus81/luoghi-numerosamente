@@ -1,4 +1,14 @@
 @extends('main')
+
+@push('head')
+    <title>Comune di {{$data->nome}}</title>
+    <meta name="description" content="Informazioni sul comune di {{$data->nome}}:  {{$infos['abitanti']}} abitanti,
+superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$infos['densita']}}ab./km2. @endisset @isset($infos['nome_abitanti'])Abitanti: {{$infos['nome_abitanti']}}. @endisset
+{{--        Parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}.--}}
+                @isset( $infos['patrono'] )
+        Patrono: {{$infos['patrono']}}.
+                @endisset">
+@endpush
 @section('content')
 
     <h1>Comune di {{$data->nome}}</h1>
@@ -41,7 +51,7 @@
             <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 @if( $stemma)
                     <div class="me-2 ">
-                        <img class="img-thumbnail stemma" src="{{$stemma}}"/>
+                        <img alt="Stemma del comune di {{$data->nome}}" title="Stemma del comune di {{$data->nome}}" class="img-thumbnail stemma" src="{{$stemma}}"/>
                     </div>
                 @endif
                 <div class="flex-grow-1 mt-2 mt-sm-0">
@@ -87,8 +97,9 @@
                 </div>
             </div>
             <hr>
-            <h2>Altre informazioni</h2>
+
             @isset($infos['frazioni_nuclei'] )
+                <h2>Altre informazioni</h2>
                 <p class="bg-light p-1 rounded">
                 <strong>Frazioni e nuclei:</strong> Nel comune di {{$data->nome}} sono le presenti {{count(explode(',',$infos['frazioni_nuclei']))}} tra frazioni e nuclei, di seguito l'elenco:
                     {{$infos['frazioni_nuclei'] }}.

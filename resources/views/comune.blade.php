@@ -4,12 +4,12 @@
     <title>Comune di {{$data->nome}}</title>
     <meta name="description" content="Informazioni sul comune di {{$data->nome}}:  {{$infos['abitanti']}} abitanti,
 superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$infos['densita']}}ab./km2. @endisset @isset($infos['nome_abitanti'])Abitanti: {{$infos['nome_abitanti']}}. @endisset
-{{--        Parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}.--}}
-                @isset( $infos['patrono'] )
+    {{--        Parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}.--}}
+    @isset( $infos['patrono'] )
         Patrono: {{$infos['patrono']}}.
                 @endisset">
 
-    <link rel="canonical" href="{{url($data->slug)}}" />
+    <link rel="canonical" href="{{url($data->slug)}}"/>
 
 @endpush
 @section('content')
@@ -24,7 +24,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
             @foreach( $breadcrumb as $nome => $url )
                 <li class="breadcrumb-item text-white"><a class="text-white" href="{{url($url)}}">{{$nome}}</a></li>
             @endforeach
-            <li class="breadcrumb-item active" aria-current="page">Comune di {{$data->nome}}</li>
+            <li class="breadcrumb-item active text-black" aria-current="page">Comune di {{$data->nome}}</li>
         </ol>
     </nav>
     <hr>
@@ -64,7 +64,8 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
             <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start">
                 @if( $stemma)
                     <div class="me-2 ">
-                        <img alt="Stemma del comune di {{$data->nome}}" title="Stemma del comune di {{$data->nome}}" class="img-thumbnail stemma" src="{{$stemma}}"/>
+                        <img alt="Stemma del comune di {{$data->nome}}" title="Stemma del comune di {{$data->nome}}"
+                             class="img-thumbnail stemma" src="{{$stemma}}"/>
                     </div>
                 @endif
                 <div class="flex-grow-1 mt-2 mt-sm-0">
@@ -103,6 +104,12 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                                     <td>{{$infos['codice_catastale']}}</td>
                                 </tr>
                             @endisset
+                            @isset( $infos['prefisso'] )
+                                <tr>
+                                    <td>Prefisso telefonico</td>
+                                    <td>{{$infos['prefisso']}}</td>
+                                </tr>
+                            @endisset
 
                             </tbody>
                         </table>
@@ -110,14 +117,50 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                 </div>
             </div>
             <hr>
+            <h2>Altre informazioni</h2>
+            <div class="bg-light p-1 rounded">
+                @isset($infos['frazioni_nuclei'] )
+                    <h3>Frazioni e nuclei</h3>
+                    <p class="bg-light p-1 rounded">
+                        <strong>Frazioni e nuclei:</strong> Nel comune di {{$data->nome}} sono le
+                        presenti {{count(explode(',',$infos['frazioni_nuclei']))}} tra frazioni e nuclei, di seguito
+                        l'elenco:
+                        {{$infos['frazioni_nuclei'] }}.
+                    </p>
+                @endisset
+                @isset( $infos['zona_climatica'])
+                    <h3>Zona climatica</h3>
+                    <p>
+                        La zona climatica del comune di {{$data->name}} è <strong>{{$infos['zona_climatica']}}</strong>
+                        @isset($infos['gradi_giorno'])
+                        , con <em>{{$infos['gradi_giorno']}}</em> gradi giorno
+                        @endisset.
+                        <br>
+                        Le limitazioni sul riscaldamento sono:<br>
+                        @switch($infos['zona_climatica'])
+                            @case('A')
+                            - 6 ore giornaliere di accensione, data di inizio 1º dicembre e 15 marzo data di fine.
+                            @break
+                            @case('B')
+                            - 8 ore giornaliere di accensione, data di inizio 1º dicembre e 31 marzo data di fine.
+                            @break
+                            @case('C')
+                            - 10 ore giornaliere di accensione, data di inizio 15 novembre e 31 marzo data di fine.
+                            @break
+                            @case('D')
+                            - 12 ore giornaliere di accensione, data di inizio 1º novembre e 15 aprile data di fine.
+                            @break
+                            @case('E')
+                            - 14 ore giornaliere di accensione, data di inizio 15 ottobre e 15 aprile data di fine.
+                            @break
+                            @case('F')
+                         nessuna limitazione.
+                            @break
 
-            @isset($infos['frazioni_nuclei'] )
-                <h2>Altre informazioni</h2>
-                <p class="bg-light p-1 rounded">
-                <strong>Frazioni e nuclei:</strong> Nel comune di {{$data->nome}} sono le presenti {{count(explode(',',$infos['frazioni_nuclei']))}} tra frazioni e nuclei, di seguito l'elenco:
-                    {{$infos['frazioni_nuclei'] }}.
-                </p>
-            @endisset
+                        @endswitch
+                    </p>
+                @endisset
+            </div>
 
         </div>
         <div class="col-12 col-lg-3 col-md-4 mt-2 mt-lg-0">
@@ -141,11 +184,15 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
 
                 </div>
             </div>
-
-{{--            Lato--}}
-{{--            @php--}}
-{{--                dump( $infos);--}}
-{{--            @endphp--}}
+            @if(env('APP_DEBUG'))
+                @php
+                    dump( $infos);
+                @endphp
+            @endif
+            {{--            Lato--}}
+            {{--            @php--}}
+            {{--                dump( $infos);--}}
+            {{--            @endphp--}}
         </div>
     </div>
 @endsection

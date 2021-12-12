@@ -2,6 +2,7 @@
 @push('head')
     <title>Luoghi.numerosamente.it | Luoghi in Italia</title>
     <meta name="description" content="Scopri informazioni e statistiche dei comuni e province italiane. ">
+    <link rel="canonical" href="{{url("/")}}"/>
 @endpush
 @section('content')
     <div class="home justify-content-center d-flex flex-column text-center align-self-center h-100">

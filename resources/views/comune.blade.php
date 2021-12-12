@@ -133,7 +133,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                     <p>
                         La zona climatica del comune di {{$data->name}} è <strong>{{$infos['zona_climatica']}}</strong>
                         @isset($infos['gradi_giorno'])
-                        , con <em>{{$infos['gradi_giorno']}}</em> gradi giorno
+                            , con <em>{{$infos['gradi_giorno']}}</em> gradi giorno
                         @endisset.
                         <br>
                         Le limitazioni sul riscaldamento sono:<br>
@@ -154,10 +154,23 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                             - 14 ore giornaliere di accensione, data di inizio 15 ottobre e 15 aprile data di fine.
                             @break
                             @case('F')
-                         nessuna limitazione.
+                            nessuna limitazione.
                             @break
 
                         @endswitch
+                    </p>
+                @endisset
+                @isset($infos['altitudine'])
+                    <h3> Altitudine </h3>
+                    <p>
+                        Il comune di {{$data->nome }} ha un'altitudine media sul livello del mare di
+                        <strong>{{$infos['altitudine']}}</strong>m.
+                        @isset($infos['altitudine_minima'])
+                            <br/>L'altitudine minima è di <strong>{{$infos['altitudine_minima']}}</strong>m <em>s.l.m.</em>.
+                        @endisset
+                        @isset($infos['altitudine_massima'])
+                            <br/> L'altitudine massima è di <strong>{{$infos['altitudine_massima']}}</strong>m <em>s.l.m.</em>.
+                        @endisset
                     </p>
                 @endisset
             </div>

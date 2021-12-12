@@ -30,7 +30,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
             <h2>Descrizione</h2>
             <p class="bg-light p-1 rounded">
                 Il comune di {{$data->nome}} conta di {{$infos['abitanti']}} abitanti, su di un territorio di
-                {{$infos['superficie'] }} km2<sup>2</sup>.
+                {{$infos['superficie'] }} km<sup>2</sup>.
 
                 @isset($infos['densita'])
                     La densità abitativa è di {{$infos['densita']}} abitanti/km<sup>2</sup>.

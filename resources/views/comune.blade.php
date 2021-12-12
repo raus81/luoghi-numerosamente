@@ -175,7 +175,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                 @endisset
                 @if($cognome != null)
                     <h3>Cognome più diffuso</h3>
-                    Il cognome più diffusso è  {{$cognome->cognome}} con {{$cognome->quanti}} persone.
+                    Il cognome più diffuso a {{$data->nome}} è {{$cognome->cognome}} con {{$cognome->quanti}} persone.
                     @endif
             </div>
 

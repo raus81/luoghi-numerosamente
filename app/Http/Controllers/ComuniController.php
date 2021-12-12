@@ -149,7 +149,7 @@ class ComuniController extends Controller {
 
 
             if( $place->livello == 4 &&Storage::exists("public/stemmi/" . $place->codice . ".jpg")){
-                $stemmaFile = Storage::url("public/stemmi/" . $place->codice . ".jpg");
+                $stemmaFile = url(Storage::url("public/stemmi/" . $place->codice . ".jpg"));
                 $tag->addImage($stemmaFile, "Stemma del comune di {$place->nome}");
 
             }

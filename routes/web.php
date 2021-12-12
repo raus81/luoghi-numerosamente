@@ -23,5 +23,6 @@ Route::get('/regione-{regione}/provincia-di-{provincia}',[\App\Http\Controllers\
 
 Route::get('/regione-{regione}',[\App\Http\Controllers\ComuniController::class,'regione']);
 
+Route::get('/regione-{regione}/comune-di-{comune}/cognomi',[\App\Http\Controllers\ComuniController::class,'cognomi']);
 
 

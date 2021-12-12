@@ -166,17 +166,20 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                         Il comune di {{$data->nome }} ha un'altitudine media sul livello del mare di
                         <strong>{{$infos['altitudine']}}</strong>m.
                         @isset($infos['altitudine_minima'])
-                            <br/>L'altitudine minima è di <strong>{{$infos['altitudine_minima']}}</strong>m <em>s.l.m.</em>.
+                            <br/>L'altitudine minima è di <strong>{{$infos['altitudine_minima']}}</strong>m
+                            <em>s.l.m.</em>.
                         @endisset
                         @isset($infos['altitudine_massima'])
-                            <br/> L'altitudine massima è di <strong>{{$infos['altitudine_massima']}}</strong>m <em>s.l.m.</em>.
+                            <br/> L'altitudine massima è di <strong>{{$infos['altitudine_massima']}}</strong>m <em>s.l.m.</em>
+                            .
                         @endisset
                     </p>
                 @endisset
                 @if($cognome != null)
                     <h3>Cognome più diffuso</h3>
-                    Il cognome più diffuso a {{$data->nome}} è <em>{{$cognome->cognome}}</em> con {{$cognome->quanti}} persone.
-                    @endif
+                    <a href="{{url($data->slug.'/cognomi')}}">Il cognome più diffuso a {{$data->nome}}</a>
+                    è <em>{{$cognome->cognome}}</em> con {{$cognome->quanti}} persone.
+                @endif
             </div>
 
         </div>

@@ -34,6 +34,29 @@ class ComuniController extends Controller {
 
     }
 
+    function cognomi($regione, $comune)
+    {
+        //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
+        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
+
+        $breadcrumbs = [];
+        $provincia = $comuneObj->upLevel;
+        $regioneObj = $provincia->upLevel;
+
+        // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+        $breadcrumbs[$provincia->nome] = $provincia->slug;
+        $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
+
+
+
+        $cognomi = $comuneObj->cognomi()->orderBy('quanti', 'desc')->get();
+        //dd($cognomi);
+        return view('cognomi', [
+            'data' => $comuneObj,
+            'cognomi' => $cognomi,
+            'breadcrumb' => $breadcrumbs
+        ]);
+    }
 
     function comune($regione, $comune)
     {

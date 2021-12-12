@@ -118,10 +118,10 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
 
                 </div>
             </div>
-            Lato
-            @php
-                dump( $infos);
-            @endphp
+{{--            Lato--}}
+{{--            @php--}}
+{{--                dump( $infos);--}}
+{{--            @endphp--}}
         </div>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 @extends('main')
 @push('head')
-    <title>Luoghi.numerosamente.it | Luoghi in Italia</title>
+    <title>italia.numerosamente.it | Luoghi in Italia</title>
     <meta name="description" content="Scopri informazioni e statistiche dei comuni e province italiane. ">
     <link rel="canonical" href="{{url("/")}}"/>
 @endpush

@@ -25,7 +25,7 @@
 <body class="h-100  d-flex flex-column">
 <nav class="navbar navbar-expand navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Italia.numerosamente.it</a>
+        <a class="navbar-brand" href="{{url("/")}}">Italia.numerosamente.it</a>
 
 {{--        <ul class="navbar-nav">--}}
 {{--            <li class="nav-item dropdown">--}}

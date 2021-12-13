@@ -51,7 +51,6 @@ class ComuniController extends Controller {
         $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
 
 
-
         $cognomi = $comuneObj->cognomi()->orderBy('quanti', 'desc')->get();
         //dd($cognomi);
         return view('cognomi', [
@@ -64,7 +63,12 @@ class ComuniController extends Controller {
     function comune($regione, $comune)
     {
         //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
-        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
+        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->firstOrFail();
+
+
+        if ($comuneObj->parent_parent != $regione) {
+            return redirect($comuneObj->slug);
+        }
         $infos = $comuneObj->infos->mapWithKeys(function ($item, $key) {
             return [$item->chiave => $item->valore];
         });
@@ -139,8 +143,9 @@ class ComuniController extends Controller {
     }
 
 
-    public function sitemap(){
-        $places = Place::query()->where([['livello' ,'!=', 2]])->get();
+    public function sitemap()
+    {
+        $places = Place::query()->where([['livello', '!=', 2]])->get();
 
         $today = Carbon::today();
         $today->setHour(0)->setMinute(0)->setSecond(0);
@@ -148,7 +153,7 @@ class ComuniController extends Controller {
             $tag = Sitemap::addTag(url($place->slug), $today, 'daily', '0.8');
 
 
-            if( $place->livello == 4 &&Storage::exists("public/stemmi/" . $place->codice . ".jpg")){
+            if ($place->livello == 4 && Storage::exists("public/stemmi/" . $place->codice . ".jpg")) {
                 $stemmaFile = url(Storage::url("public/stemmi/" . $place->codice . ".jpg"));
                 $tag->addImage($stemmaFile, "Stemma del comune di {$place->nome}");
 

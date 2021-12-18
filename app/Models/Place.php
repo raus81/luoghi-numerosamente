@@ -28,4 +28,8 @@ class Place extends Model {
     function cognomi(){
         return $this->hasMany(Cognome::class, 'codice','codice');
     }
+
+    function distanze(){
+        return $this->hasMany(Distance::class, 'codice_1', 'codice');
+    }
 }

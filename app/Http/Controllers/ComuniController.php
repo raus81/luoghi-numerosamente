@@ -42,11 +42,7 @@ class ComuniController extends Controller {
         //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
         $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
 
-        $breadcrumbs = [];
-        $provincia = $comuneObj->upLevel;
-        $regioneObj = $provincia->upLevel;
-        $breadcrumbs[$provincia->nome] = $provincia->slug;
-        $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
+        $breadcrumbs = $this->getBreadcrumb($comuneObj);
         $fileJson = 'info/istat/' . $comuneObj->codice . '.json';
 
         if (!Storage::exists($fileJson)) {
@@ -62,18 +58,30 @@ class ComuniController extends Controller {
         ]);
     }
 
+
+    function distanze($regione, $comune)
+    {
+        //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
+        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
+
+        $distanze = $comuneObj->distanze()->with('place2.upLevel')->get()
+            ->sortBy('metri', SORT_NUMERIC);
+
+
+        return view('distanze', [
+            'data' => $comuneObj,
+            'distanze' => $distanze,
+            'breadcrumb' => $this->getBreadcrumb($comuneObj)
+        ]);
+
+    }
+
     function cognomi($regione, $comune)
     {
         //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
         $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
 
-        $breadcrumbs = [];
-        $provincia = $comuneObj->upLevel;
-        $regioneObj = $provincia->upLevel;
-
-        // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
-        $breadcrumbs[$provincia->nome] = $provincia->slug;
-        $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
+        $breadcrumbs = $this->getBreadcrumb($comuneObj);
 
 
         $cognomi = $comuneObj->cognomi()->orderBy('quanti', 'desc')->get();
@@ -134,6 +142,8 @@ class ComuniController extends Controller {
             $hasStatistiche = true;
         }
 
+        $distanza = $comuneObj->distanze()->with('place2.upLevel')->orderBy('metri')->first();
+
         return view('comune', ['data' => $comuneObj,
             'cognome' => $cognome,
             'infos' => $infos,
@@ -141,6 +151,7 @@ class ComuniController extends Controller {
             'numcomuni' => $numComuniProvincia,
             'stessaprovincia' => $comuniStessaProvincia,
             'statistiche' => $hasStatistiche,
+            'vicino' => $distanza,
             'breadcrumb' => $breadcrumbs]);
     }
 
@@ -194,5 +205,21 @@ class ComuniController extends Controller {
 
         }
         return Sitemap::render();
+    }
+
+    /**
+     * @param object|null $comuneObj
+     * @return array
+     */
+    private function getBreadcrumb(?object $comuneObj): array
+    {
+        $breadcrumbs = [];
+        $provincia = $comuneObj->upLevel;
+        $regioneObj = $provincia->upLevel;
+
+        // $breadcrumbs[$regioneObj->nome] = $regioneObj->slug;
+        $breadcrumbs[$provincia->nome] = $provincia->slug;
+        $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
+        return $breadcrumbs;
     }
 }

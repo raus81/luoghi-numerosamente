@@ -20,12 +20,14 @@ Route::get('/regione-{regione}/comune-di-{comune}',[\App\Http\Controllers\Comuni
 Route::get('/regione-{regione}/provincia-di-{provincia}',[\App\Http\Controllers\ComuniController::class,'provincia']);
 Route::get('/regione-{regione}/citta-metropolitana-di-{provincia}',[\App\Http\Controllers\ComuniController::class,'provincia']);
 Route::get('/regione-{regione}/provincia-di-{provincia}',[\App\Http\Controllers\ComuniController::class,'provincia']);
+Route::get('/regione-{regione}/libero-consorzio-comunale-di-{provincia}',[\App\Http\Controllers\ComuniController::class,'provincia']);
 
 Route::get('/regione-{regione}',[\App\Http\Controllers\ComuniController::class,'regione']);
 
 Route::get('/regione-{regione}/comune-di-{comune}/cognomi',[\App\Http\Controllers\ComuniController::class,'cognomi']);
 
 Route::get('/regione-{regione}/comune-di-{comune}/popolazione',[\App\Http\Controllers\ComuniController::class,'popolazione']);
+Route::get('/regione-{regione}/comune-di-{comune}/distanze',[\App\Http\Controllers\ComuniController::class,'distanze']);
 
 
 Route::get('sitemap.xml', [\App\Http\Controllers\ComuniController::class,'sitemap'])->name('sitemap');

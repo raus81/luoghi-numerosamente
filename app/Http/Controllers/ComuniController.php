@@ -202,16 +202,14 @@ class ComuniController extends Controller {
         return Sitemap::render();
     }
 
-    public function sitemapExtra()
+    public function sitemapStats()
     {
         $places = Place::query()->where([['livello', '=', 4]])->get();
 
         $today = Carbon::today();
         $today->setHour(0)->setMinute(0)->setSecond(0);
         foreach ($places as $place) {
-            if ($place->cognomi->count()) {
-                Sitemap::addTag(url($place->slug . '/cognomi'), $today, 'daily', '0.8');
-            }
+
             Sitemap::addTag(url($place->slug . '/distanze'), $today, 'daily', '0.8');
             $fileJson = 'info/istat/' . $place->codice . '.json';
 

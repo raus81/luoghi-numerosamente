@@ -11335,3 +11335,12 @@ body .navbar {
 body footer {
   background-color: #558B6E;
 }
+
+table.popolazione th,
+table.popolazione td {
+  text-align: center;
+}
+table.popolazione td:first-child {
+  border-right: 1px solid #ccc;
+  font-weight: bold;
+}

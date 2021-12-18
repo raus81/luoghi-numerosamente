@@ -123,7 +123,7 @@ class FetchTuttitalia extends Command {
             $info = [];
             $info['abitanti'] = str_replace(".", "", $this->extractData('@<tr><td class="lr">Popolazione</td><td>(\s*[\d\\.]+\s*)<small>abitanti</small>@', $data));
             $info['superficie'] = $this->extractData('@<tr><td class="lr">Superficie</td><td>([\d,]+)@', $data);
-            $info['densita'] = $this->extractData('@<tr><td class="lr">Densit.*?</td><td>([\d,]+)@', $data);
+            $info['densita'] = str_replace(".", "", $this->extractData('@<tr><td class="lr">Densit.*?</td><td>([\d,\.]+)@', $data));
             $info['codice_catastale'] = $this->extractData('@>Codice catastale</td><td style="font-weight:bold;">(.*?)</td>@', $data);
             $info['prefisso'] = $this->extractData('@Prefisso</td><td><a href=".*?">(.*?)</a>@', $data);
             $info['cap'] = $this->extractData('@CAP</td><td colspan="2"><span class="xa">(\d+)@', $data);

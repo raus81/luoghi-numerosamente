@@ -69,3 +69,18 @@ body{
 }
 
 
+table.popolazione{
+
+    th,
+    td{
+
+        text-align: center;
+    }
+    td{
+        &:first-child{
+            border-right: 1px solid #ccc;
+            font-weight: bold;
+        }
+    }
+}
+

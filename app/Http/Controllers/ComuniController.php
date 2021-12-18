@@ -37,6 +37,31 @@ class ComuniController extends Controller {
 
     }
 
+    function popolazione($regione, $comune)
+    {
+        //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
+        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
+
+        $breadcrumbs = [];
+        $provincia = $comuneObj->upLevel;
+        $regioneObj = $provincia->upLevel;
+        $breadcrumbs[$provincia->nome] = $provincia->slug;
+        $breadcrumbs[$comuneObj->nome] = $comuneObj->slug;
+        $fileJson = 'info/istat/' . $comuneObj->codice . '.json';
+
+        if (!Storage::exists($fileJson)) {
+            return redirect('/');
+        }
+        $data = Storage::get($fileJson);
+        $json = json_decode($data);
+
+        return view('popolazione', [
+            'data' => $comuneObj,
+            'pop' => $json,
+            'breadcrumb' => $breadcrumbs
+        ]);
+    }
+
     function cognomi($regione, $comune)
     {
         //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);

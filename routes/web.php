@@ -31,6 +31,7 @@ Route::get('/regione-{regione}/comune-di-{comune}/distanze',[\App\Http\Controlle
 
 
 Route::get('sitemap.xml', [\App\Http\Controllers\ComuniController::class,'sitemap'])->name('sitemap');
+Route::get('sitemap_extra.xml', [\App\Http\Controllers\ComuniController::class,'sitemapExtra'])->name('sitemap');
 
 
 

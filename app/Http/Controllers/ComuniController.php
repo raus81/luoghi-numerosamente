@@ -194,17 +194,34 @@ class ComuniController extends Controller {
         $today->setHour(0)->setMinute(0)->setSecond(0);
         foreach ($places as $place) {
             $tag = Sitemap::addTag(url($place->slug), $today, 'daily', '0.8');
-
-
             if ($place->livello == 4 && Storage::exists("public/stemmi/" . $place->codice . ".jpg")) {
                 $stemmaFile = url(Storage::url("public/stemmi/" . $place->codice . ".jpg"));
                 $tag->addImage($stemmaFile, "Stemma del comune di {$place->nome}");
-
             }
+        }
+        return Sitemap::render();
+    }
 
+    public function sitemapExtra()
+    {
+        $places = Place::query()->where([['livello', '=', 4]])->with(['cognomi'])->get();
+
+        $today = Carbon::today();
+        $today->setHour(0)->setMinute(0)->setSecond(0);
+        foreach ($places as $place) {
+            if ($place->cognomi->count()) {
+                Sitemap::addTag(url($place->slug . '/cognomi'), $today, 'daily', '0.8');
+            }
+            Sitemap::addTag(url($place->slug . '/distanze'), $today, 'daily', '0.8');
+            $fileJson = 'info/istat/' . $place->codice . '.json';
+
+            if (Storage::exists($fileJson)) {
+                Sitemap::addTag(url($place->slug . '/popolazione'), $today, 'daily', '0.8');
+            }
 
         }
         return Sitemap::render();
+
     }
 
     /**

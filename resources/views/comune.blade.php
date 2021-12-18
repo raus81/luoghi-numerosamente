@@ -77,7 +77,13 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                             @isset( $infos['abitanti'] )
                                 <tr>
                                     <td>Abitanti</td>
-                                    <td>{{$infos['abitanti']}}</td>
+                                    <td>{{$infos['abitanti']}}
+                                        @if( $statistiche)
+                                            <small><a class="btn btn-sm btn-outline-success"
+                                                      href="{{url($data->slug.'/popolazione')}}">Vedi
+                                                    statistiche</a> </small>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endisset
                             @isset( $infos['superficie'] )

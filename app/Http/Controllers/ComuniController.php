@@ -127,13 +127,20 @@ class ComuniController extends Controller {
 
         $cognome = $comuneObj->cognomi()->orderBy('quanti', 'desc')->first();
 
-        //dd( $infos );
+        $fileJson = 'info/istat/' . $comuneObj->codice . '.json';
+
+        $hasStatistiche = false;
+        if (Storage::exists($fileJson)) {
+            $hasStatistiche = true;
+        }
+
         return view('comune', ['data' => $comuneObj,
             'cognome' => $cognome,
             'infos' => $infos,
             'stemma' => $stemmaFile,
             'numcomuni' => $numComuniProvincia,
             'stessaprovincia' => $comuniStessaProvincia,
+            'statistiche' => $hasStatistiche,
             'breadcrumb' => $breadcrumbs]);
     }
 

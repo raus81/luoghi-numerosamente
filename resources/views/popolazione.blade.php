@@ -41,8 +41,8 @@
                     $f = new NumberFormatter("it", NumberFormatter::SPELLOUT);
                 @endphp
                 <h2>Popolazione</h2>
-                <p class="bg-white rounded rounded-2">
-                    La popolazione del Comune di {{$data->nome}}} è composta da
+                <p class="p-1 bg-white rounded rounded-2">
+                    La popolazione del Comune di {{$data->nome}} è composta da
                     <strong>{{$f->format($pop->TOTAL->T->T)}}</strong> persone di cui
                     <strong>{{$f->format($pop->TOTAL->F->T)}}</strong> femmine e
                     <strong>{{$f->format($pop->TOTAL->M->T)}}</strong> maschi.<Br>
@@ -50,7 +50,8 @@
                 </p>
                 @isset( $pop->TOTAL->T->C )
                     <h2>Celibi/nubili</h2>
-                    <div class="bg-white rounded rounded-2"><p>
+                    <div class="bg-white rounded rounded-2">
+                        <p class=" p-1">
                             Le persone celibi/nubili sono <strong>{{$f->format($pop->TOTAL->T->C)}}</strong> composte
                             da:
                         </p>
@@ -71,7 +72,7 @@
                 @endisset
                 @isset( $pop->TOTAL->T->S )
                     <h2>Coniugati</h2>
-                    <div class="bg-white rounded rounded-2"><p>
+                    <div class="bg-white rounded rounded-2"><p class="p-1">
                             Le persone coniugate sono <strong>{{$f->format($pop->TOTAL->T->S)}}</strong> composte
                             da:
                         </p>
@@ -91,7 +92,7 @@
                 @endisset
                 @isset( $pop->TOTAL->T->V )
                     <h2>Vedovi </h2>
-                    <div class="bg-white rounded rounded-2"><p>
+                    <div class="bg-white rounded rounded-2"><p class="p-1">
                             Le persone vedove sono <strong>{{$f->format($pop->TOTAL->T->S)}}</strong>, composte
                             da:
                         </p>
@@ -111,7 +112,7 @@
                 @endisset
                 @isset( $pop->TOTAL->T->D )
                     <h2>Divorziati </h2>
-                    <div class="bg-white rounded rounded-2"><p>
+                    <div class="bg-white rounded rounded-2"><p class="p-1">
                             Le persone divorziate sono <strong>{{$f->format($pop->TOTAL->T->D)}}</strong>, composte
                             da:
                         </p>

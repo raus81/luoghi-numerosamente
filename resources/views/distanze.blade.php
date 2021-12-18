@@ -1,7 +1,7 @@
 @extends('main')
 
 @push('head')
-    <title>Statistiche popolazione del comune di {{$data->nome}}</title>
+    <title>Comune di {{$data->nome}}: vicini e lontani</title>
     <meta name="description" content="Scopri i comuni più vicini e i comuni più distanti al Comune di {{$data->nome}}">
 
     <link rel="canonical" href="{{url($data->slug .'/distanze')}}"/>
@@ -60,12 +60,12 @@
                         </thead>
                         <tbody class="vicini">
                         @php
-                        $vicini = $distanze->slice(0,15);
+                            $vicini = $distanze->slice(0,15);
                         @endphp
                         @foreach($vicini as $distanza)
                             <tr>
                                 <td>{{$distanza->place2->nome}}<br>
-                                <small>{{$distanza->place2->upLevel->nome}}</small></td>
+                                    <small>{{$distanza->place2->upLevel->nome}}</small></td>
                                 <td>{{number_format( $distanza->metri/1000,3,',','.')}} <em>km</em></td>
                             </tr>
                         @endforeach

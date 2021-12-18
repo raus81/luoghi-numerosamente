@@ -4,7 +4,7 @@
     <title>Statistiche popolazione del comune di {{$data->nome}}</title>
     <meta name="description" content="Scopri le statistiche sulla popolazione del Comune di {{$data->nome}}">
 
-    <link rel="canonical" href="{{url($data->slug .'/cognomi')}}"/>
+    <link rel="canonical" href="{{url($data->slug .'/popolazione')}}"/>
 
 @endpush
 @section('content')

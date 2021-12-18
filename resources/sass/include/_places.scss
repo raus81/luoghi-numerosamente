@@ -81,6 +81,9 @@ table.popolazione{
             border-right: 1px solid #ccc;
             font-weight: bold;
         }
+        &:last-child{
+            border-left:2px solid #ccc;
+        }
     }
 }
 

@@ -143,6 +143,7 @@
                         <th>Divorziate/i</th>
                         <th>Maschi</th>
                         <th>Femmine</th>
+                        <th><strong>Totale</strong></th>
                     </tr>
 
                     </thead>
@@ -197,13 +198,15 @@
                             <td>{{$pop->{$key}->M->T ?? '0'}}
 
                             <td>{{$pop->{$key}->F->T ?? '0'}}
+                            <td>{{$pop->{$key}->T->T ?? '0'}}</td>
 
                         </tr>
                     @endforeach
+                    </tbody>
                     <tfoot>
                     @php
-                $key = 'TOTAL';
-@endphp
+                        $key = 'TOTAL';
+                    @endphp
                     <tr>
 
                         <td>Totale</td>
@@ -250,10 +253,11 @@
                         <td>{{$pop->{$key}->M->T ?? ''}}
 
                         <td>{{$pop->{$key}->F->T ?? ''}}
+                        <td>{{$pop->{$key}->T->T ?? '0'}}</td>
 
                     </tr>
                     </tfoot>
-                    </tbody>
+
 
                 </table>
             </div>

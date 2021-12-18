@@ -204,7 +204,7 @@ class ComuniController extends Controller {
 
     public function sitemapExtra()
     {
-        $places = Place::query()->where([['livello', '=', 4]])->with(['cognomi'])->get();
+        $places = Place::query()->where([['livello', '=', 4]])->get();
 
         $today = Carbon::today();
         $today->setHour(0)->setMinute(0)->setSecond(0);

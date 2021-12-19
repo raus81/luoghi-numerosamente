@@ -28,6 +28,7 @@ Route::get('/regione-{regione}/comune-di-{comune}/cognomi',[\App\Http\Controller
 
 Route::get('/regione-{regione}/comune-di-{comune}/popolazione',[\App\Http\Controllers\ComuniController::class,'popolazione']);
 Route::get('/regione-{regione}/comune-di-{comune}/distanze',[\App\Http\Controllers\ComuniController::class,'distanze']);
+Route::get('/regione-{regione}/comune-di-{comune}/parrocchie',[\App\Http\Controllers\ComuniController::class,'parrocchie']);
 
 
 Route::get('sitemap.xml', [\App\Http\Controllers\ComuniController::class,'sitemap'])->name('sitemap');

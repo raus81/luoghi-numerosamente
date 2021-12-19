@@ -76,6 +76,32 @@ class ComuniController extends Controller {
 
     }
 
+    function parrocchie($regione, $comune)
+    {
+        //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
+        $comuneObj = Place::query()->where([['livello', '=', 4], ['nome', 'like', str_replace('-', '_', $comune)]])->first();
+
+        $parrocchie = $comuneObj->parrocchie()->orderBY('nome')->get();
+
+        if ($parrocchie->count() == 0) {
+            return redirect('/');
+        }
+
+        $most = $parrocchie->sortBy('fedeli')->last();
+        $totale = $parrocchie->sum('fedeli');
+
+        return view('parrocchie', [
+            'data' => $comuneObj,
+            'parrocchie' => $parrocchie,
+            'num' => $parrocchie->count(),
+            'max' => $most,
+            'totale' => $totale,
+            'breadcrumb' => $this->getBreadcrumb($comuneObj)
+        ]);
+
+    }
+
+
     function cognomi($regione, $comune)
     {
         //$comuneObj = DB::selectOne("SELECT * FROM places WHERE livello = 4 AND nome like ?", [$comune]);
@@ -144,6 +170,9 @@ class ComuniController extends Controller {
 
         $distanza = $comuneObj->distanze()->with('place2.upLevel')->orderBy('metri')->first();
 
+
+        $parrocchie = $comuneObj->parrocchie()->orderBY('nome')->get();
+
         return view('comune', ['data' => $comuneObj,
             'cognome' => $cognome,
             'infos' => $infos,
@@ -151,6 +180,7 @@ class ComuniController extends Controller {
             'numcomuni' => $numComuniProvincia,
             'stessaprovincia' => $comuniStessaProvincia,
             'statistiche' => $hasStatistiche,
+            'parrocchie' => $parrocchie,
             'vicino' => $distanza,
             'breadcrumb' => $breadcrumbs]);
     }

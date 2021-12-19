@@ -77,7 +77,7 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                             @isset( $infos['abitanti'] )
                                 <tr>
                                     <td>Abitanti</td>
-                                    <td>{{$infos['abitanti']}}
+                                    <td> {{number_format(trim($infos['abitanti']),0,',','.')}}
                                         @if( $statistiche)
                                             <small><a class="btn btn-sm btn-outline-success"
                                                       href="{{url($data->slug.'/popolazione')}}">Vedi
@@ -114,6 +114,12 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                                 <tr>
                                     <td>Prefisso telefonico</td>
                                     <td>{{$infos['prefisso']}}</td>
+                                </tr>
+                            @endisset
+                            @isset( $parrocchie )
+                                <tr>
+                                    <td colspan="2"><a href="{{url($data->slug .'/parrocchie')}}">Parrocchie nel Comune
+                                            di {{$data->nome}}</a></td>
                                 </tr>
                             @endisset
 
@@ -183,17 +189,18 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                 @endisset
                 @if($cognome != null)
                     <h3>Cognome più diffuso</h3>
-                        <p><a href="{{url($data->slug.'/cognomi')}}">Il cognome più diffuso a {{$data->nome}}</a>
-                            è <em>{{$cognome->cognome}}</em> con {{$cognome->quanti}} persone.</p>
+                    <p><a href="{{url($data->slug.'/cognomi')}}">Il cognome più diffuso a {{$data->nome}}</a>
+                        è <em>{{$cognome->cognome}}</em> con {{$cognome->quanti}} persone.</p>
                 @endif
 
                 @isset( $vicino )
-                        @php
-                            $f = new NumberFormatter("it", NumberFormatter::SPELLOUT);
-                        @endphp
+                    @php
+                        $f = new NumberFormatter("it", NumberFormatter::SPELLOUT);
+                    @endphp
                     <h3>Comune più vicino</h3>
-                        <p><a href="{{url($data->slug.'/distanze')}}">Il comune più vicino al Comune di {{$data->nome}}</a> è {{$vicino->place2->nome}} e dista
-                            <strong>{{$f->format(floor( $vicino->metri /1000))}}</strong> <em>km</em>.</p>
+                    <p><a href="{{url($data->slug.'/distanze')}}">Il comune più vicino al Comune di {{$data->nome}}</a>
+                        è {{$vicino->place2->nome}} e dista
+                        <strong>{{$f->format(floor( $vicino->metri /1000))}}</strong> <em>km</em>.</p>
                 @endif
             </div>
 

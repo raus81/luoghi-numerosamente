@@ -29,6 +29,10 @@ class Place extends Model {
         return $this->hasMany(Cognome::class, 'codice','codice');
     }
 
+    function parrocchie(){
+        return  $this->hasMany(Parrocchia::class, 'codice','codice');
+    }
+
     function distanze(){
         return $this->hasMany(Distance::class, 'codice_1', 'codice');
     }

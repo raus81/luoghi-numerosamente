@@ -116,12 +116,12 @@ superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$inf
                                     <td>{{$infos['prefisso']}}</td>
                                 </tr>
                             @endisset
-                            @isset( $parrocchie )
+                            @if( $parrocchie->count()> 0 )
                                 <tr>
                                     <td colspan="2"><a href="{{url($data->slug .'/parrocchie')}}">Parrocchie nel Comune
                                             di {{$data->nome}}</a></td>
                                 </tr>
-                            @endisset
+                            @endif
 
                             </tbody>
                         </table>

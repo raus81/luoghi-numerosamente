@@ -170,7 +170,7 @@ class ComuniController extends Controller {
 
         $distanza = $comuneObj->distanze()->with('place2.upLevel')->orderBy('metri')->first();
 
-
+//dump($infos);
         $parrocchie = $comuneObj->parrocchie()->orderBY('nome')->get();
 
         return view('comune', ['data' => $comuneObj,

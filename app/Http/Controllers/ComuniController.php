@@ -140,15 +140,28 @@ class ComuniController extends Controller {
 
         $numComuniProvincia = count($infosWithComuni) - 1;
 
-        $comuniStessaProvincia = $infosWithComuni
+        $comuniStessaProvinciaObj = $infosWithComuni
             ->map(function ($info) {
                 return $info->comune;
+            })->sortBy('nome');
+
+        $counter = 1;
+        $comuneIndex = $comuniStessaProvinciaObj->mapWithKeys(function ($comune) use (&$counter) {
+            return [$comune->slug => $counter++];
+        })->get($comuneObj->slug);
+
+
+        $minIndex = $comuneIndex > 20 ? $comuneIndex - 20 : 0;
+        $maxIndex = $minIndex + 40;
+
+        $counter = 1;
+        $comuniStessaProvincia = $comuniStessaProvinciaObj
+            ->filter(function ($comune) use ($comuneObj, &$counter, $minIndex, $maxIndex) {
+                $condition = $comune->nome != $comuneObj->nome && $counter >= $minIndex && $counter <= $maxIndex;
+                $counter++;
+                return $condition;
             })
-            ->filter(function ($comune) use ($comuneObj) {
-                return $comune->nome != $comuneObj->nome;
-            })
-            ->mapWithKeys(function ($comune, $index) {
-                //dump( $info);
+            ->mapWithKeys(function ($comune) {
                 return [$comune->nome => '/' . $comune->slug];
             });
 

@@ -1,13 +1,20 @@
 @extends('main')
+@php
+$description = "Scopri tutto sul comune di " . trim($data->nome) . ": " . trim($infos['abitanti'] )." abitanti, " .
 
+"superficie: " .  $infos['superficie'] ."km2";
+if( isset($infos['nome_abitanti'])){
+    $description .= ", nome " . $infos['nome_abitanti'];
+}
+if( isset($infos['patrono'])){
+    $description .= ", patrono " . $infos['patrono'];
+}
+$description .= ' e molto altro...';
+
+@endphp
 @push('head')
     <title>Comune di {{$data->nome}}</title>
-    <meta name="description" content="Informazioni sul comune di {{$data->nome}}:  {{$infos['abitanti']}} abitanti,
-superficie:{{$infos['superficie'] }}km2.@isset($infos['densita'])Densità:{{$infos['densita']}}ab./km2. @endisset @isset($infos['nome_abitanti'])Abitanti: {{$infos['nome_abitanti']}}. @endisset
-    {{--        Parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}.--}}
-    @isset( $infos['patrono'] )
-        Patrono: {{$infos['patrono']}}.
-                @endisset">
+    <meta name="description" content="{{$description}}">
 
     <link rel="canonical" href="{{url($data->slug)}}"/>
 

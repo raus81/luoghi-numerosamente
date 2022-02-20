@@ -13,7 +13,7 @@ $description .= ' e molto altro...';
 
 @endphp
 @push('head')
-    <title>Comune di {{$data->nome}}</title>
+    <title>Informazioni su {{$data->nome}}</title>
     <meta name="description" content="{{$description}}">
 
     <link rel="canonical" href="{{url($data->slug)}}"/>

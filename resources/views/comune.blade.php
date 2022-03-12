@@ -1,15 +1,15 @@
 @extends('main')
 @php
-$description = "Scopri tutto sul comune di " . trim($data->nome) . ": " . trim($infos['abitanti'] )." abitanti, " .
+    $description = "Scopri tutto sul comune di " . trim($data->nome) . ": " . trim($infos['abitanti'] )." abitanti, " .
 
-"superficie: " .  $infos['superficie'] ."km2";
-if( isset($infos['nome_abitanti'])){
-    $description .= ", nome " . $infos['nome_abitanti'];
-}
-if( isset($infos['patrono'])){
-    $description .= ", patrono " . $infos['patrono'];
-}
-$description .= ' e molto altro...';
+    "superficie: " .  $infos['superficie'] ."km2";
+    if( isset($infos['nome_abitanti'])){
+        $description .= ", nome " . $infos['nome_abitanti'];
+    }
+    if( isset($infos['patrono'])){
+        $description .= ", patrono " . $infos['patrono'];
+    }
+    $description .= ' e molto altro...';
 
 @endphp
 @push('head')
@@ -38,26 +38,34 @@ $description .= ' e molto altro...';
     <div class="row">
         <div class="col-12 col-lg-9 col-md-8 content">
             <h2>Descrizione</h2>
-            <p class="bg-light p-1 rounded">
-                Il comune di {{$data->nome}} conta di {{$infos['abitanti']}} abitanti, su di un territorio di
-                {{$infos['superficie'] }} km<sup>2</sup>.
+            @if( !isset( $infos['text'] ))
+                <p class="bg-light p-1 rounded">
+                    Il comune di {{$data->nome}} conta di {{$infos['abitanti']}} abitanti, su di un territorio di
+                    {{$infos['superficie'] }} km<sup>2</sup>.
 
-                @isset($infos['densita'])
-                    La densità abitativa è di {{$infos['densita']}} abitanti/km<sup>2</sup>.
-                @endisset
+                    @isset($infos['densita'])
+                        La densità abitativa è di {{$infos['densita']}} abitanti/km<sup>2</sup>.
+                    @endisset
 
-                @isset($infos['nome_abitanti'])
-                    Gli abitanti di {{$data->nome}} sono chiamati <em> {{$infos['nome_abitanti']}} </em>. <br>
-                @endisset
+                    @isset($infos['nome_abitanti'])
+                        Gli abitanti di {{$data->nome}} sono chiamati <em> {{$infos['nome_abitanti']}} </em>. <br>
+                    @endisset
 
-                Il comune fa parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}, insieme ad
-                altri {{$numcomuni}} comuni.
-                @isset( $infos['patrono'] )
-                    Il patrono è {{$infos['patrono']}}.
-                @endisset
+                    Il comune fa parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}, insieme ad
+                    altri {{$numcomuni}} comuni.
+                    @isset( $infos['patrono'] )
+                        Il patrono è {{$infos['patrono']}}.
+                    @endisset
 
-            </p>
-            <!-- Italia center -->
+                </p>
+            @endif
+            @if( isset( $infos['text'] ))
+                <p class="bg-light p-1 rounded">
+                    {!! nl2br($infos['text']) !!}
+
+                </p>
+        @endif
+        <!-- Italia center -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-3475702324698098"
@@ -125,7 +133,8 @@ $description .= ' e molto altro...';
                             @endisset
                             @if( $parrocchie->count()> 0 )
                                 <tr>
-                                    <td colspan="2"><a href="{{url($data->slug .'/parrocchie')}}">Parrocchie nel Comune
+                                    <td colspan="2"><a href="{{url($data->slug .'/parrocchie')}}">Parrocchie nel
+                                            Comune
                                             di {{$data->nome}}</a></td>
                                 </tr>
                             @endif
@@ -150,7 +159,8 @@ $description .= ' e molto altro...';
                 @isset( $infos['zona_climatica'])
                     <h3>Zona climatica</h3>
                     <p>
-                        La zona climatica del comune di {{$data->name}} è <strong>{{$infos['zona_climatica']}}</strong>
+                        La zona climatica del comune di {{$data->name}} è
+                        <strong>{{$infos['zona_climatica']}}</strong>
                         @isset($infos['gradi_giorno'])
                             , con <em>{{$infos['gradi_giorno']}}</em> gradi giorno
                         @endisset.
@@ -205,7 +215,8 @@ $description .= ' e molto altro...';
                         $f = new NumberFormatter("it", NumberFormatter::SPELLOUT);
                     @endphp
                     <h3>Comune più vicino</h3>
-                    <p><a href="{{url($data->slug.'/distanze')}}">Il comune più vicino al Comune di {{$data->nome}}</a>
+                    <p><a href="{{url($data->slug.'/distanze')}}">Il comune più vicino al Comune
+                            di {{$data->nome}}</a>
                         è {{$vicino->place2->nome}} e dista
                         <strong>{{$f->format(floor( $vicino->metri /1000))}}</strong> <em>km</em>.</p>
                 @endif

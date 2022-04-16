@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Info;
 use App\Models\Place;
 use Illuminate\Console\Command;
 
@@ -38,8 +39,9 @@ class CreateText extends Command {
     public function handle()
     {
         $query = Place::query()->whereLivello(4);
-        $comuni = $query->get();
+        $comuni = $query->limit(1000)->get();
         foreach ($comuni as $comune) {
+
 
             $provincia = $comune->upLevel;
             $regione = $provincia->upLevel;
@@ -47,13 +49,22 @@ class CreateText extends Command {
             $infos = $comune->infos->mapWithKeys(function ($info) {
                 return [$info->chiave => $info->valore];
             });
+            if (isset($infos['text'])) {
+                continue;
+            }
+
+            $infosWithComuni = Info::query()->where([['chiave', '=', 'prov_nome'], ['valore', 'like', $infos['prov_nome']]])->with('comune')->get();
+            $numComuniProvincia = count($infosWithComuni) - 1;
+
 
             $data = $this->infosToText($infos);
-            $text = $comuneFull . '.' . PHP_EOL . implode($data, ', ') . '.';
+            $text = $comuneFull . '.' . PHP_EOL . implode($data, '.' . PHP_EOL) . '.' . PHP_EOL;
 
-            echo 'Scrivi un testo sul comune di ' . $text;
+            $text .= 'Il comune fa parte della ' . $infos['prov_tipo'] . ' di ' . $infos['prov_nome'] . ', insieme ad altri ' . $numComuniProvincia . ' comuni.' . PHP_EOL;
 
-            return Command::SUCCESS;
+            echo 'Scrivi un testo sul comune di ' . $text . PHP_EOL . PHP_EOL;
+
+            //return Command::SUCCESS;
         }
         return Command::SUCCESS;
     }
@@ -98,7 +109,9 @@ class CreateText extends Command {
             $data[] = 'zona_sismica ' . $infos['zona_sismica'];
         }
 
-
+        if (isset($infos['patrono'])) {
+            $data[] = 'Il patrono è ' . $infos['patrono'];
+        }
         return $data;
     }
 }

@@ -150,6 +150,14 @@ class FetchTuttitalia extends Command {
             $info['prov_tipo'] = $this->extractData('@class="lr">(.*)</td><td><a href="/.*?/provincia-.*?/">.*? \(<b>.*?</b>\)</a></td>@',$data);
             $info['prov_nome'] = $this->extractData('@class="lr">.*</td><td><a href="/.*?/provincia-.*?/">(.*?) \(<b>.*?</b>\)</a></td>@',$data);
             $info['prov_sigla'] = $this->extractData('@class="lr">.*</td><td><a href="/.*?/provincia-.*?/">.*? \(<b>(.*?)</b>\)</a></td>@',$data);
+            $info['pec-comune'] = $this->extractData('@Email PEC</abbr></td><td><a class="wy" href="mailto:(.+?)">@',$data);
+            $info['sito-comune'] = $this->extractData('@Sito istituzionale</td><td><a class="bp" href="(.*?)"@',$data);
+            $info['indirizzo-comune'] = $this->extractData('@Indirizzo Municipio.*?streetAddress">(.*?)<@',$data);
+            $info['cap-comune'] = $this->extractData('@Indirizzo Municipio.*?postalCode">(.*?)<@',$data);
+            $info['place-comune'] = $this->extractData('@Indirizzo Municipio.*?addressLocality">(.*?)<@',$data);
+            $info['prov-comune'] = $this->extractData('@Indirizzo Municipio.*?addressRegion">(.*?)<@',$data);
+
+
 
 //            print_r($test );
 //            continue;

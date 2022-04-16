@@ -39,25 +39,42 @@
         <div class="col-12 col-lg-9 col-md-8 content">
             <h2>Descrizione</h2>
             @if( !isset( $infos['text'] ))
-                <p class="bg-light p-1 rounded">
-                    Il comune di {{$data->nome}} conta di {{$infos['abitanti']}} abitanti, su di un territorio di
-                    {{$infos['superficie'] }} km<sup>2</sup>.
 
-                    @isset($infos['densita'])
-                        La densità abitativa è di {{$infos['densita']}} abitanti/km<sup>2</sup>.
-                    @endisset
+                <div class="bg-light p-1 rounded">
+                    <p>
+                        Il comune di {{$data->nome}} conta di {{$infos['abitanti']}} abitanti, su di un territorio di
+                        {{$infos['superficie'] }} km<sup>2</sup>.
 
-                    @isset($infos['nome_abitanti'])
-                        Gli abitanti di {{$data->nome}} sono chiamati <em> {{$infos['nome_abitanti']}} </em>. <br>
-                    @endisset
+                        @isset($infos['densita'])
+                            La densità abitativa è di {{$infos['densita']}} abitanti/km<sup>2</sup>.
+                        @endisset
 
-                    Il comune fa parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}, insieme ad
-                    altri {{$numcomuni}} comuni.
-                    @isset( $infos['patrono'] )
-                        Il patrono è {{$infos['patrono']}}.
-                    @endisset
+                        @isset($infos['nome_abitanti'])
+                            Gli abitanti di {{$data->nome}} sono chiamati <em> {{$infos['nome_abitanti']}} </em>. <br>
+                        @endisset
 
-                </p>
+                        Il comune fa parte della {{$infos['prov_tipo']}} di {{$infos['prov_nome']}}, insieme ad
+                        altri {{$numcomuni}} comuni.
+                        @isset( $infos['patrono'] )
+                            Il patrono è {{$infos['patrono']}}.
+                        @endisset
+
+                    </p>
+                    <h3>Municipio</h3>
+                    <p>
+                        Il Comune di {{$data->nome}} si trova in: <br>
+                        {{$infos['indirizzo-comune']}}, {{$infos['cap-comune']}}, {{$infos['place-comune']}}<br>
+                        @isset($infos['pec-comune'] )
+                        <strong>Indirizzo PEC: </strong>
+                        {{$infos['pec-comune']}}<br>
+                        @endisset
+                        @isset($infos['sito-comune'])
+                        <strong>Sito web istituzionale:</strong>
+                        <a  href="{{$infos['sito-comune']}}">{{$infos['sito-comune']}}</a>
+                        @endisset
+                    </p>
+
+                </div>
             @endif
             @if( isset( $infos['text'] ))
                 <p class="bg-light p-1 rounded">

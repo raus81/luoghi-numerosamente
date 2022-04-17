@@ -45,9 +45,9 @@
         </div>
     </div>
 </nav>
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{url("/")}}">Italia.numerosamente.it</a>
+{{--<nav class="navbar navbar-expand navbar-dark bg-dark">--}}
+{{--    <div class="container-fluid">--}}
+{{--        <a class="navbar-brand" href="{{url("/")}}">Italia.numerosamente.it</a>--}}
 
 {{--        <ul class="navbar-nav">--}}
 {{--            <li class="nav-item dropdown">--}}
@@ -61,8 +61,8 @@
 {{--                </ul>--}}
 {{--            </li>--}}
 {{--        </ul>--}}
-    </div>
-</nav>
+{{--    </div>--}}
+{{--</nav>--}}
 <div class="container   comune flex-grow-1 pb-4">
 @yield('content')
 </div>

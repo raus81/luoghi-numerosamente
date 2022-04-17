@@ -249,11 +249,14 @@
                         @foreach($data['farmacie'] as $farmacia )
                             @if(    isset( $farmacia['nome'] )&& isset($farmacia['indirizzo'] )&& isset($farmacia['telefono'] )&& isset($farmacia['codice'] )&& isset($farmacia['piva'] ) )
                                 <strong>{{$farmacia['nome']}}</strong><br>
-                                {{$farmacia['indirizzo']}}<br>
-                                {{$farmacia['telefono']}}<br>
-                                {{$farmacia['codice']}} - {{$farmacia['piva']}}<br>
+                                <i class="fa-solid fa-location-dot"></i> {{$farmacia['indirizzo']}}<br>
+                                <i class="fa-solid fa-phone"></i> {{str_replace(';','',$farmacia['telefono'])}} -
+                                codice {{$farmacia['codice']}} - p.iva {{$farmacia['piva']}}<br>
+                                @if( !$loop->last)
+                                    <br>
+                                @endif
                             @endif
-                                @endforeach
+                        @endforeach
                     </p>
                 </div>
             @endif

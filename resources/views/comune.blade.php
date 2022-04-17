@@ -27,7 +27,8 @@
         style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
         aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item text-white"><a class="text-white" href="{{url('')}}"><i class="fa-solid fa-house-chimney"></i></a></li>
+            <li class="breadcrumb-item text-white"><a class="text-white" href="{{url('')}}"><i
+                        class="fa-solid fa-house-chimney"></i></a></li>
             @foreach( $breadcrumb as $nome => $url )
                 <li class="breadcrumb-item text-white"><a class="text-white" href="{{url($url)}}">{{$nome}}</a></li>
             @endforeach
@@ -65,12 +66,12 @@
                         Il Comune di {{$data->nome}} si trova in: <br>
                         {{$infos['indirizzo-comune']}}, {{$infos['cap-comune']}}, {{$infos['place-comune']}}<br>
                         @isset($infos['pec-comune'] )
-                        <strong>Indirizzo PEC: </strong>
-                        {{$infos['pec-comune']}}<br>
+                            <strong>Indirizzo PEC: </strong>
+                            {{$infos['pec-comune']}}<br>
                         @endisset
                         @isset($infos['sito-comune'])
-                        <strong>Sito web istituzionale:</strong>
-                        <a  href="{{$infos['sito-comune']}}">{{$infos['sito-comune']}}</a>
+                            <strong>Sito web istituzionale:</strong>
+                            <a href="{{$infos['sito-comune']}}">{{$infos['sito-comune']}}</a>
                         @endisset
                     </p>
 
@@ -81,7 +82,7 @@
                     {!! nl2br($infos['text']) !!}
 
                 </p>
-        @endif
+            @endif
         <!-- Italia center -->
             <ins class="adsbygoogle"
                  style="display:block"
@@ -238,6 +239,24 @@
                         <strong>{{$f->format(floor( $vicino->metri /1000))}}</strong> <em>km</em>.</p>
                 @endif
             </div>
+            @if(isset($infos['farmacie']))
+                <div class="bg-light p-1 rounded mt-4">
+                    <h3>Farmacie</h3>
+                    <p>
+                        @php
+                            $data  = json_decode($infos['farmacie'],true) ;
+                        @endphp
+                        @foreach($data['farmacie'] as $farmacia )
+                            @if(    isset( $farmacia['nome'] )&& isset($farmacia['indirizzo'] )&& isset($farmacia['telefono'] )&& isset($farmacia['codice'] )&& isset($farmacia['piva'] ) )
+                                <strong>{{$farmacia['nome']}}</strong><br>
+                                {{$farmacia['indirizzo']}}<br>
+                                {{$farmacia['telefono']}}<br>
+                                {{$farmacia['codice']}} - {{$farmacia['piva']}}<br>
+                            @endif
+                                @endforeach
+                    </p>
+                </div>
+            @endif
 
         </div>
         <div class="col-12 col-lg-3 col-md-4 mt-2 mt-lg-0">

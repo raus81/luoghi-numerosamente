@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[\App\Http\Controllers\ComuniController::class,'home']);
 
+Route::get('/chi-siamo', function(){
+   return view('chisiamo');
+})->name('chisiamo');
+
 Route::get('/regione-{regione}/comune-di-{comune}',[\App\Http\Controllers\ComuniController::class,'comune']);
 
 Route::get('/regione-{regione}/provincia-di-{provincia}',[\App\Http\Controllers\ComuniController::class,'provincia']);

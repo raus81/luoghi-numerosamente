@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @stack('head')
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3475702324698098" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3475702324698098"
+            crossorigin="anonymous"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -16,7 +17,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K4QL2HZLZV"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-K4QL2HZLZV');
@@ -27,19 +32,21 @@
 <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{url("/")}}">italia.numerosamente.it</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link active" aria-current="page" href="/">Home</a>--}}
+{{--                </li>--}}
 
             </ul>
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('chi-siamo')}}">Chi siamo</a>
+                    <a class="nav-link active" aria-current="page" href="{{url('chi-siamo')}}">
+                        <span>Chi siamo</span> <i class="fas fa-info-circle"></i></a>
                 </li>
             </ul>
         </div>
@@ -64,7 +71,7 @@
 {{--    </div>--}}
 {{--</nav>--}}
 <div class="container   comune flex-grow-1 pb-4">
-@yield('content')
+    @yield('content')
 </div>
 <footer class=" text-white flex-shrink-0 text-center p-2">
     Copyright &copy; {{date('Y')}}

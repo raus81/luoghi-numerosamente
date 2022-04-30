@@ -131,9 +131,15 @@ class FetchComuniItaliani extends Command {
             echo "Codice Istat: " . $codiceIstat . PHP_EOL;
 
             if (file_exists(self::DOWNLOAD_PATH . $file . '_farmacie')) {
-                $this->parseFarmacie($file);
+                // $this->parseFarmacie($file);
 
             }
+            if (file_exists(self::DOWNLOAD_PATH . $file . '_banche')) {
+                $this->parseBanche($file);
+
+            }
+
+
         }
     }
 
@@ -168,25 +174,27 @@ class FetchComuniItaliani extends Command {
 
         $data = [];
         $farmacie = $this->parseFarmacieHtml($farmacieRaw[0]);
-        if( count($farmacie)){
+        if (count($farmacie)) {
             $data['farmacie'] = $farmacie;
 
         }
         if (isset($farmacieRaw[1])) {
+
             $parafarmacie = $this->parseFarmacieHtml($farmacieRaw[1]);
+            //echo $farmacieRaw[1]; exit;
             if (count($parafarmacie)) {
+                echo count($parafarmacie) . PHP_EOL;
                 $data['parafarmacie'] = $parafarmacie;
 
             }
         }
 
-        if( count($data )){
+        if (count($data)) {
             $json = json_encode($data);
 
             DB::insert("INSERT OR IGNORE INTO info(codice, chiave, valore)VALUES(?, ?, ?)",
-                [str_replace('_','',$file), 'farmacie', $json]);
+                [str_replace('_', '', $file), 'farmacie', $json]);
         }
-
 
 
     }
@@ -210,5 +218,41 @@ class FetchComuniItaliani extends Command {
             $farmacie[] = $farmacia;
         }
         return $farmacie;
+    }
+
+    private function parseBanche($file)
+    {
+        // \/banche\/\d+\/">(.*?)<\/a><\/b><br>(.*?)<br>ABI: (\d+) - CAB: (\d+)<br><\/td>
+
+        $filename = self::DOWNLOAD_PATH . $file . '_banche';
+
+        $htmlBanche = utf8_encode(file_get_contents($filename));
+
+
+        $matchesBanche = [];
+        preg_match_all("@\/banche\/\d+\/\">(.*?)<\/a><\/b><br>(.*?)<br>ABI: (\d+) - CAB: (\d+)<br>(?:Telefono: ([\d\-]+))?.*?(?:; Fax: ([\d\-]+))?.*?<\/td>@s", $htmlBanche, $matchesBanche);
+        //echo $htmlBanche;
+        $banche = [];
+        foreach ($matchesBanche[0] as $key => $value) {
+            $banca = [
+                'nome' => $matchesBanche[1][$key],
+                'indirizzo' => strip_tags($matchesBanche[2][$key]),
+                'abi' => $matchesBanche[3][$key],
+                'cab' => $matchesBanche[4][$key]
+            ];
+            if (!empty($matchesBanche[5][$key])) {
+                $banca['telefono'] = $matchesBanche[5][$key];
+            }
+            if (!empty($matchesBanche[6][$key])) {
+                $banca['fax'] = $matchesBanche[6][$key];
+            }
+            $banche[] = $banca;
+        }
+        if (count($banche)) {
+            $json = json_encode($banche);
+
+            DB::insert("INSERT OR IGNORE INTO info(codice, chiave, valore)VALUES(?, ?, ?)",
+                [str_replace('_', '', $file), 'banche', $json]);
+        }
     }
 }

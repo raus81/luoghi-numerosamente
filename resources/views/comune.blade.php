@@ -143,6 +143,12 @@
                                     <td>{{$infos['codice_catastale']}}</td>
                                 </tr>
                             @endisset
+                            @isset( $data->codice )
+                                <tr>
+                                    <td>Codice ISTAT</td>
+                                    <td>{{$data->codice }}</td>
+                                </tr>
+                            @endisset
                             @isset( $infos['prefisso'] )
                                 <tr>
                                     <td>Prefisso telefonico</td>
@@ -239,27 +245,8 @@
                         <strong>{{$f->format(floor( $vicino->metri /1000))}}</strong> <em>km</em>.</p>
                 @endif
             </div>
-            @if(isset($infos['farmacie']))
-                <div class="bg-light p-1 rounded mt-4">
-                    <h3>Farmacie</h3>
-                    <p>
-                        @php
-                            $data  = json_decode($infos['farmacie'],true) ;
-                        @endphp
-                        @foreach($data['farmacie'] as $farmacia )
-                            @if(    isset( $farmacia['nome'] )&& isset($farmacia['indirizzo'] )&& isset($farmacia['telefono'] )&& isset($farmacia['codice'] )&& isset($farmacia['piva'] ) )
-                                <strong>{{$farmacia['nome']}}</strong><br>
-                                <i class="fa-solid fa-location-dot"></i> {{$farmacia['indirizzo']}}<br>
-                                <i class="fa-solid fa-phone"></i> {{str_replace(';','',$farmacia['telefono'])}} -
-                                codice {{$farmacia['codice']}} - p.iva {{$farmacia['piva']}}<br>
-                                @if( !$loop->last)
-                                    <br>
-                                @endif
-                            @endif
-                        @endforeach
-                    </p>
-                </div>
-            @endif
+            @include('comune.farmacie')
+            @include('comune.banche')
 
         </div>
         <div class="col-12 col-lg-3 col-md-4 mt-2 mt-lg-0">
@@ -286,6 +273,7 @@
             @if(env('APP_DEBUG'))
                 @php
                     dump( $infos);
+                    dump($data);
                 @endphp
             @endif
             {{--            Lato--}}

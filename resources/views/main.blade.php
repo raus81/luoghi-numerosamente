@@ -31,7 +31,9 @@
 
 <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{url("/")}}">italia.numerosamente.it</a>
+        <a class="navbar-brand p-0" href="{{url("/")}}">
+            <img class="logo" src="/imgs/logo-white.svg"/>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

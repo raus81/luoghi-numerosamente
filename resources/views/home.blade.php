@@ -6,7 +6,11 @@
 @endpush
 @section('content')
     <div class="home justify-content-center d-flex flex-column text-center align-self-center h-100">
+        <div>
+            <img class="logo img-fluid" src="/imgs/logo-white.svg"/>
+        </div>
         <h1>Luoghi in Italia</h1>
+
         <input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off"
                autocapitalize="off" maxlength="2048" tabindex="1">
         <h2 class="mt-4"> Alcune ricerche frequenti </h2>

@@ -7,7 +7,7 @@
 @section('content')
     <div class="home justify-content-center d-flex flex-column text-center align-self-center h-100">
         <div>
-            <img class="logo img-fluid" src="/imgs/logo-white.svg"/>
+            <img class="logo mt-2 img-fluid" src="/imgs/logo-white.svg"/>
         </div>
         <h1>Luoghi in Italia</h1>
 
